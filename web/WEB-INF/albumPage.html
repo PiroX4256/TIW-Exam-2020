@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <meta charset="UTF-8">
+    <title>Album page &bull; TIW Exam 2020</title>
+</head>
+<body>
+<div class="main">
+    <h1>Album Page</h1>
+    <table class="table">
+        <tr th:if="${not imageList.isEmpty()}">
+            <th th:each="i : ${imageList}" th:unless="${imageList.indexOf(i)>4}"><img class="thumbnail" th:src="${i.getPath()}"></th>
+        </tr>
+    </table>
+    <h4>Add a new image to the album!</h4>
+    <div class="imageForm">
+        <form th:action="@{/InsertImage}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:value="${#request.getParameter('album')}" name="album">
+            <div class="form-group">
+                <label>Title
+                    <input type="text" class="form-control" name="title" required></label>
+            </div>
+            <div class="form-group">
+                <label>Description
+                    <input type="text" class="form-control" name="description" required></label>
+            </div>
+            <div class="form-group">
+                <label>Date
+                    <input type="date" name="date" required></label>
+            </div>
+            <div class="form-group">
+                <label>Image
+                    <input type="file" name="file" accept=".png, .jpg" required></label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
