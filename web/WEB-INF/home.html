@@ -27,6 +27,18 @@
         </tr>
         </tbody>
     </table>
+
+    <h5><i>Create a new album</i></h5>
+    <div class="forms">
+        <form th:action="@{/CreateNewAlbum}" method="post">
+            <div class="form-group">
+                <label>Album title
+                <input type="text" class="form-control" name="title" required></label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form><br>
+        <span th:class="${!session.newAlbumErr.isEmpty() ? 'alert alert-danger' : ''}" th:text="${session.newAlbumErr}"></span>
+    </div>
 </div>
 </body>
 </html>

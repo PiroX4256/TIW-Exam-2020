@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,12 +31,28 @@ public class InsertImage extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
         Map<String, String> fieldMapValue = handleRequest(request, response);
-        int albumId = Integer.parseInt(fieldMapValue.get("album"));
-        String title = fieldMapValue.get("title");
-        String description = fieldMapValue.get("description");
-        String fileName = fieldMapValue.get("fileName");
-        Date date = Date.valueOf(fieldMapValue.get("date"));
+        int albumId = 0;
+        String title;
+        String description;
+        String fileName;
+        Date date;
+        try {
+            albumId = Integer.parseInt(fieldMapValue.get("album"));
+            title = fieldMapValue.get("title");
+            description = fieldMapValue.get("description");
+            fileName = fieldMapValue.get("fileName");
+            date = Date.valueOf(fieldMapValue.get("date"));
+        }
+        catch (NullPointerException | IllegalArgumentException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Incorrect or missing parameters!");
+            return;
+        }
+        if(title.isEmpty() || description.isEmpty() || fileName==null || fileName.isEmpty() || date==null) {
+            inputError(response, session, albumId);
+            return;
+        }
         ImageDAO imageDAO = new ImageDAO(connection, albumId);
         try {
             imageDAO.createNewImage(title, fileName, date, description);
@@ -44,6 +61,11 @@ public class InsertImage extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to insert image!");
             return;
         }
+        response.sendRedirect(getServletContext().getContextPath() + "/GoToAlbumPage?album=" + albumId);
+    }
+
+    private void inputError(HttpServletResponse response, HttpSession session, int albumId) throws IOException {
+        session.setAttribute("newImageErr", "Field must not be empty");
         response.sendRedirect(getServletContext().getContextPath() + "/GoToAlbumPage?album=" + albumId);
     }
 
@@ -74,7 +96,6 @@ public class InsertImage extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error during parsing form input!");
             return null;
         }
         return fieldMapValue;

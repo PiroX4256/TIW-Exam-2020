@@ -16,27 +16,28 @@
         </tr>
     </table>
     <h4>Add a new image to the album!</h4>
-    <div class="imageForm">
+    <div class="forms">
         <form th:action="@{/InsertImage}" method="post" enctype="multipart/form-data">
             <input type="hidden" th:value="${#request.getParameter('album')}" name="album">
             <div class="form-group">
                 <label>Title
-                    <input type="text" class="form-control" name="title" required></label>
+                    <input type="text" class="form-control" name="title" ></label>
             </div>
             <div class="form-group">
                 <label>Description
-                    <input type="text" class="form-control" name="description" required></label>
+                    <input type="text" class="form-control" name="description" ></label>
             </div>
             <div class="form-group">
                 <label>Date
-                    <input type="date" name="date" required></label>
+                    <input type="date" name="date" ></label>
             </div>
             <div class="form-group">
                 <label>Image
-                    <input type="file" name="file" accept=".png, .jpg" required></label>
+                    <input type="file" name="file" accept=".png, .jpg" ></label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </form><br>
+        <span th:class="${!session.newImageErr.isEmpty() ? 'alert alert-danger' : ''}" th:text="${session.newImageErr}"></span>
     </div>
 </div>
 </body>
