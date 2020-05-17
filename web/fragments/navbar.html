@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div th:fragment="navigation(activeLink)">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">TIW-Exam 2020</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" th:classappend="${#strings.equals(activeLink, 'Home') ? 'active' : ''}">
+                    <a class="nav-link" th:href="${#strings.equals(activeLink, 'Home') ? '#' : 'GoToHomepage'}"> Home</a>
+                </li>
+            </ul>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="text-align: right">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a th:href="@{/Logout}" style="text-align: right" class="nav-link">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
