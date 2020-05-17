@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+//TODO CONTROLLI LATO SERVER
+
 @WebServlet("/CreateNewAlbum")
 public class CreateNewAlbum extends HttpServlet {
     private static Connection connection;
