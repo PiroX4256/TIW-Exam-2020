@@ -60,5 +60,6 @@ form {
 }
 
 #details img {
+    max-width: 90%;
     padding: 20px;
 }

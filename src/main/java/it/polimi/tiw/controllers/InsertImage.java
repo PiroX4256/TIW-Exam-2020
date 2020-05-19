@@ -61,12 +61,12 @@ public class InsertImage extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to insert image!");
             return;
         }
-        response.sendRedirect(getServletContext().getContextPath() + "/GoToAlbumPage?album=" + albumId);
+        response.sendRedirect(getServletContext().getContextPath() + "/GoToAlbumPage?album=" + albumId + "&page=0");
     }
 
     private void inputError(HttpServletResponse response, HttpSession session, int albumId) throws IOException {
         session.setAttribute("newImageErr", "Field must not be empty");
-        response.sendRedirect(getServletContext().getContextPath() + "/GoToAlbumPage?album=" + albumId);
+        response.sendRedirect(getServletContext().getContextPath() + "/GoToAlbumPage?album=" + albumId + "&page=0");
     }
 
     protected Map<String, String> handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {

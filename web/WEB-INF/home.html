@@ -18,18 +18,20 @@
         <thead class="table-dark">
         <th scope="col">ID</th>
         <th scope="col">Album name</th>
+        <th scope="col">Creation date</th>
         <th scope="col">More details</th>
         </thead>
         <tbody>
         <tr th:each="album : ${albumList}">
             <td id="albumId" th:value="${album.getAlbumId()}" th:text="${album.getAlbumId()}"></td>
             <td th:text="${album.getTitle()}"></td>
+            <td th:text="${album.getCreationDate().toString().substring(0, 11)}"></td>
             <td><a th:href="@{/GoToAlbumPage(album=${album.getAlbumId()}, page=0)}"><button class="btn btn-primary">Accedi</button></a></td>
         </tr>
         </tbody>
     </table>
 
-    <h5><i>Create a new album</i></h5>
+    <h4><i>Create a new album</i></h4>
     <div class="forms">
         <form th:action="@{/CreateNewAlbum}" method="post">
             <div class="form-group">
