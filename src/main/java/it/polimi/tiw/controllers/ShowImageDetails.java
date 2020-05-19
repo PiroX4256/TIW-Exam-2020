@@ -1,5 +1,8 @@
 package it.polimi.tiw.controllers;
 
+import it.polimi.tiw.beans.Comment;
+import it.polimi.tiw.beans.Image;
+import it.polimi.tiw.dao.CommentDAO;
 import it.polimi.tiw.dao.ImageDAO;
 import it.polimi.tiw.utils.Initializer;
 import it.polimi.tiw.utils.Pages;
@@ -13,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/ShowImageDetails")
 public class ShowImageDetails extends HttpServlet {
@@ -26,16 +31,21 @@ public class ShowImageDetails extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int image = Integer.parseInt(request.getParameter("image"));
+        List<Comment> comments = new ArrayList<>();
+        Image imageDetails;
         ImageDAO imageDAO = new ImageDAO(connection, image);
+        CommentDAO commentDAO = new CommentDAO(connection, image);
         try {
-            imageDAO.getImageById();
+            imageDetails = imageDAO.getImageById();
+            comments = commentDAO.retrieveComments();
         }
         catch (SQLException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to get the desired image.");
             return;
         }
         WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
-        webContext.setVariable("image", image);
+        webContext.setVariable("imageDetails", imageDetails);
+        webContext.setVariable("comments", comments);
         String path = Pages.albumPage;
         templateEngine.process(path, webContext, response.getWriter());
     }

@@ -22,6 +22,10 @@ public class AddComment extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nickname = request.getParameter("nickname");
         String comment = request.getParameter("comment");
+        if(nickname.equals("") || comment.equals("")) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters!");
+            return;
+        }
         int image = Integer.parseInt(request.getParameter("image"));
         CommentDAO commentDAO = new CommentDAO(connection, image);
         try {

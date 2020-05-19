@@ -58,3 +58,7 @@ form {
     float: right;
     margin: 20px;
 }
+
+#details img {
+    padding: 20px;
+}

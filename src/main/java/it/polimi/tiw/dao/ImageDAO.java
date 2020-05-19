@@ -14,13 +14,7 @@ public class ImageDAO {
     public ImageDAO(Connection connection, int album) {
         this.connection = connection;
         this.album = album;
-        this.imageId = null;
-    }
-
-    public ImageDAO(Connection connection, Integer imageId) {
-        this.connection = connection;
-        this.album = null;
-        this.imageId = imageId;
+        this.imageId = album;
     }
 
     public void createNewImage(String title, String path, Date date, String description) throws SQLException {
@@ -56,7 +50,7 @@ public class ImageDAO {
     }
 
     public Image getImageById() throws SQLException {
-        String query = "SELECT * FROM image WHERE id = ?";
+        String query = "SELECT * FROM image WHERE imageid = ?";
         Image image = null;
         try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, imageId);
