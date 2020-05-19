@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>Album page &bull; TIW Exam 2020</title>
 </head>
-<body>
+<body th:width="i">
 <div th:insert="fragments/navbar::navigation('album')"></div>
 <div class="main">
     <h1>Album Page</h1>
@@ -16,6 +16,12 @@
             <th th:each="i : ${imageList}" th:unless="${imageList.indexOf(i)>4}"><img class="thumbnail" th:src="${i.getPath()}"></th>
         </tr>
     </table>
+</div>
+<div class="arrowsDiv">
+    <a th:href="@{/GoToAlbumPage(album=${#request.getParameter('album')}, page=${pageId}, dir='prev')}"><span th:class="${imageFull.size()>5 ? 'leftArrow btn btn-primary' : ''}" th:text="${imageFull.size()>5 ? 'Prev' : ''}"></span></a>
+    <a th:href="@{/GoToAlbumPage(album=${#request.getParameter('album')}, page=${pageId}, dir='next')}"><span th:class="${imageFull.size()>5 ? 'rightArrow btn btn-primary' : ''}" th:text="${imageFull.size()>5 ? 'Next' : ''}"></span></a>
+</div>
+<div class="main">
     <h4>Add a new image to the album!</h4>
     <div class="forms">
         <form th:action="@{/InsertImage}" method="post" enctype="multipart/form-data">

@@ -41,3 +41,20 @@ form {
     height: 112px;
     object-fit: contain;
 }
+
+
+.arrowsDiv {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+
+.arrowsDiv .leftArrow {
+    float: left;
+    margin: 20px;
+}
+
+.arrowsDiv .rightArrow {
+    float: right;
+    margin: 20px;
+}
