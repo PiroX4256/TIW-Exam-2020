@@ -20,7 +20,7 @@ import java.util.List;
 @WebServlet("/GoToAlbumPage")
 public class GoToAlbumPage extends HttpServlet {
     private static Connection connection;
-    private TemplateEngine templateEngine;
+    private static TemplateEngine templateEngine;
 
     public void init() {
         connection = Initializer.connectionInit(getServletContext());
