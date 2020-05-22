@@ -24,11 +24,13 @@ public class ShowImageDetails extends HttpServlet {
     private static Connection connection;
     private static TemplateEngine templateEngine;
 
+    @Override
     public void init() {
         connection = Initializer.connectionInit(getServletContext());
         templateEngine = Initializer.templateEngineInit(getServletContext());
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int image = Integer.parseInt(request.getParameter("image"));
         List<Comment> comments = new ArrayList<>();
@@ -46,7 +48,7 @@ public class ShowImageDetails extends HttpServlet {
         WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
         webContext.setVariable("imageDetails", imageDetails);
         webContext.setVariable("comments", comments);
-        String path = Pages.albumPage;
+        String path = Pages.ALBUM_PAGE_HTML;
         templateEngine.process(path, webContext, response.getWriter());
     }
 }

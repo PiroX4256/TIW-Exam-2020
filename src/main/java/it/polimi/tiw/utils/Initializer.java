@@ -8,6 +8,9 @@ import javax.servlet.ServletContext;
 import java.sql.Connection;
 
 public class Initializer {
+
+    private Initializer() {}
+
     public static Connection connectionInit(ServletContext context) {
         Connection connection = null;
         try {

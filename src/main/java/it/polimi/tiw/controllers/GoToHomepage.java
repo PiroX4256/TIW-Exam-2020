@@ -22,11 +22,13 @@ public class GoToHomepage extends HttpServlet {
     private static Connection connection;
     private static TemplateEngine templateEngine;
 
+    @Override
     public void init() {
         connection = Initializer.connectionInit(getServletContext());
         templateEngine = Initializer.templateEngineInit(getServletContext());
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AlbumDAO albumDAO = new AlbumDAO(connection);
         List<Album> albumList = null;
@@ -39,10 +41,11 @@ public class GoToHomepage extends HttpServlet {
         }
         WebContext webContext = new WebContext(request, response, getServletContext(), request.getLocale());
         webContext.setVariable("albumList", albumList);
-        String path = Pages.homepage;
+        String path = Pages.HOME_HTML;
         templateEngine.process(path, webContext, response.getWriter());
     }
 
+    @Override
     public void destroy() {
         try {
             if(connection!=null) {
@@ -51,9 +54,5 @@ public class GoToHomepage extends HttpServlet {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

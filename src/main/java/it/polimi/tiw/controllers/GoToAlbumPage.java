@@ -22,17 +22,18 @@ public class GoToAlbumPage extends HttpServlet {
     private static Connection connection;
     private static TemplateEngine templateEngine;
 
+    @Override
     public void init() {
         connection = Initializer.connectionInit(getServletContext());
         templateEngine = Initializer.templateEngineInit(getServletContext());
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int albumId = Integer.parseInt(request.getParameter("album"));
         int pageId = Integer.parseInt(request.getParameter("page"));
         ImageDAO imageDAO = new ImageDAO(connection, albumId);
         List<Image> images;
-        //TODO fix forward/backward images slide
         try {
             images = imageDAO.retrieveImages();
         } catch (SQLException e) {
@@ -58,7 +59,7 @@ public class GoToAlbumPage extends HttpServlet {
         webContext.setVariable("pageId", pageId);
         webContext.setVariable("imageList", imagesTemp);
         webContext.setVariable("imageFull", images);
-        String path = Pages.albumPage;
+        String path = Pages.ALBUM_PAGE_HTML;
         templateEngine.process(path, webContext, response.getWriter());
     }
 }
