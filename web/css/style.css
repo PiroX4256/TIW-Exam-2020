@@ -63,3 +63,7 @@ form {
     max-width: 90%;
     padding: 20px;
 }
+
+.hidden {
+    display: none;
+}
