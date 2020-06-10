@@ -10,9 +10,7 @@
     <root id="archive" name="TIWExam2020.war">
       <element id="artifact" artifact-name="TIW-Exam-2020:war exploded" />
       <element id="directory" name="WEB-INF">
-        <element id="directory" name="lib">
-          <element id="library" level="project" name="mysql-connector-java-8.0.15" />
-        </element>
+        <element id="directory" name="lib" />
       </element>
     </root>
   </artifact>

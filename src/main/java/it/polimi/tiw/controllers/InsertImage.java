@@ -46,6 +46,10 @@ public class InsertImage extends HttpServlet {
             description = fieldMapValue.get("description");
             fileName = fieldMapValue.get("fileName");
             date = Date.valueOf(fieldMapValue.get("date"));
+            if(date.getTime() > new java.util.Date().getTime()) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "You can't insert a date located in the future.");
+                return;
+            }
         }
         catch (NullPointerException | IllegalArgumentException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Incorrect or missing parameters!");

@@ -45,7 +45,6 @@ form {
 
 .arrowsDiv {
     width: 100%;
-    margin-bottom: 50px;
 }
 
 
@@ -67,3 +66,4 @@ form {
 .hidden {
     display: none;
 }
+.clear { clear:both; }

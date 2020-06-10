@@ -24,12 +24,13 @@
         </table>
     </div>
     <div class="arrowsDiv">
-        <a th:href="@{/GoToAlbumPage(album=${#request.getParameter('album')}, page=${pageId}, dir='prev')}"><span
-                th:class="${(imageFull.size()>5 && pageId>0) ? 'leftArrow btn btn-primary' : 'hidden'}"
-                th:text="${imageFull.size()>5 ? 'Prev' : ''}"></span></a>
-        <a th:href="@{/GoToAlbumPage(album=${#request.getParameter('album')}, page=${pageId}, dir='next')}"><span
-                th:class="${(imageFull.size()>5 && pageId<imageFull.size()/3 - 1) ? 'rightArrow btn btn-primary' : 'hidden'}"
-                th:text="${imageFull.size()>5 ? 'Next' : ''}"></span></a>
+        <a th:href="@{/GoToAlbumPage(album=${#request.getParameter('album')}, page=${pageId}, dir='prev')}"
+            th:class="${(imageFull.size()>5 && pageId>0) ? 'leftArrow btn btn-primary' : 'hidden'}"
+                th:text="${imageFull.size()>5 ? 'Prev' : ''}"></a>
+        <a th:href="@{/GoToAlbumPage(album=${#request.getParameter('album')}, page=${pageId}, dir='next')}"
+           th:class="${(imageFull.size()>5 && pageId<imageFull.size()/3 - 1) ? 'rightArrow btn btn-primary' : 'hidden'}"
+                th:text="${imageFull.size()>5 ? 'Next' : ''}"></a>
+        <div class="clear"></div>
     </div>
     <div class="main">
         <h4>Add a new image to the album!</h4>
